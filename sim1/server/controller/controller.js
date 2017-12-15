@@ -6,6 +6,8 @@ var items = [
 module.exports = {
 
     getOne: (req, res) => {
+        // const {id} = req.body
+
 
         res.status(200).send(items)
     }

@@ -2,9 +2,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const ctrl = require('./controller')
+const ctrl = require('./controller/controller')
 
 const app = new express();
+
+app.use( cors () )
 app.use( bodyParser.json() );
 
 

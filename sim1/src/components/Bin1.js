@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Input from './Bin1Input';
 import Display from './Bin1Display'
+import { setTimeout } from 'timers';
 
 //sim 37E-2
 export default class Bin1 extends Component {
@@ -14,41 +15,53 @@ export default class Bin1 extends Component {
 
         //Sim1 36C
         this.state = {
-            item: '',
+            id: 'A1',
+            name: '',
+            price: 0,
             edit: true,
-            display: <Display />
+            display: '',
         }
 
         //Sim1 37C
         this.confirmSave = this.confirmSave.bind(this)
+        this.changeView = this.changeView.bind(this)
 
     }
 
-
+        //sim 44E
     componentDidMount() {
+        this.changeView()
+        var id = this.state.id
 
-        axios.get(`/api/items`).then((req, res) => {
-            console.log('hit')
+        //sim 44C & 44D
+        axios.get(`/api/items`).then( res => {
+            // var {name, price} = res.data
+            // this.setState( { name: name, price: price})
+            console.log(res.data)
         })
     }
 
     //sim 36J
-    changeView(){
+    changeView() {
         if (this.state.edit === true) {
             //sim1 36D
-            this.setState( { 
-                            display: <Display item={this.state.item}
+            this.setState( { edit: false,
+                            display: <Display name={this.state.name}
+                                                price={this.state.price}
                                                 changeView={this.changeView}/> } )
 
         } else {
-            this.setState( { display: <Input confirmSave={this.confirmSave}/>  } )
+            this.setState( { edit: true, 
+                            display: <Input confirmSave={this.confirmSave}/>  } )
         }
     }
 
     confirmSave(i) {
-        this.setState( { item: i } )
-        this.changeView()
-        console.log(this.state.item)
+        var {name, price} = i;
+        this.setState( { name: name, price: price } )
+        setTimeout(this.changeView(), 1000)
+        setTimeout(console.log(this.state.name), 1000)
+
     }
 
     //sim1 36F

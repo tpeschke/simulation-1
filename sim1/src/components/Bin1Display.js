@@ -1,8 +1,10 @@
-
-
 import React, { Component } from 'react'
 
 export default class Input extends Component {
+
+    change = () => {
+        this.props.changeView()
+    }
 
     render() {
 
@@ -15,7 +17,7 @@ export default class Input extends Component {
                 
                 <h2>Price</h2>
                 <h2>${this.props.price}</h2>
-                <button onClick={e => this.props.changeView()}>EDIT</button>
+                <button onClick={_ => this.change()}>EDIT</button>
             </div>
         )
     }
