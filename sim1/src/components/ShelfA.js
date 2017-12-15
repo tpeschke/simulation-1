@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Link, Switch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import Bin1 from "./Bin1"
 
 export default class ShelfA extends Component {
 

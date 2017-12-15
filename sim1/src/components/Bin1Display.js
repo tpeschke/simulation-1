@@ -1,3 +1,5 @@
+
+
 import React, { Component } from 'react'
 
 export default class Input extends Component {
@@ -12,7 +14,8 @@ export default class Input extends Component {
                 <h2>{this.props.item}</h2>
                 
                 <h2>Price</h2>
-                <h2>{this.props.price}</h2>
+                <h2>${this.props.price}</h2>
+                <button onClick={e => this.props.changeView()}>EDIT</button>
             </div>
         )
     }

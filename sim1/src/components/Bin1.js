@@ -1,5 +1,6 @@
 //sim1 37E-1
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import Input from './Bin1Input';
 import Display from './Bin1Display'
@@ -13,29 +14,41 @@ export default class Bin1 extends Component {
 
         //Sim1 36C
         this.state = {
-            item: 'Baseball',
-            price: 15,
+            item: '',
             edit: true,
-            button: 'SAVE',
-            display: <Input />
+            display: <Display />
         }
 
-        //sim 37C
-        this.edit = this.edit.bind(this)
+        //Sim1 37C
+        this.confirmSave = this.confirmSave.bind(this)
+
+    }
+
+
+    componentDidMount() {
+
+        axios.get(`/api/items`).then((req, res) => {
+            console.log('hit')
+        })
     }
 
     //sim 36J
-    edit(){
+    changeView(){
         if (this.state.edit === true) {
             //sim1 36D
-            this.setState( { edit: false, 
-                            button: 'EDIT', 
+            this.setState( { 
                             display: <Display item={this.state.item}
-                                                price={this.state.price}/> } )
-            
+                                                changeView={this.changeView}/> } )
+
         } else {
-            this.setState( { edit: true, button: 'SAVE', display: <Input />  } )
+            this.setState( { display: <Input confirmSave={this.confirmSave}/>  } )
         }
+    }
+
+    confirmSave(i) {
+        this.setState( { item: i } )
+        this.changeView()
+        console.log(this.state.item)
     }
 
     //sim1 36F
@@ -45,11 +58,9 @@ export default class Bin1 extends Component {
             <div>
                 {/* sim1 36H & 36G */}
                 {this.state.display}
-                <section>
-                    {/* sim1 36G */}
-                    <button onClick={this.edit}>{this.state.button}</button>
+    
                     <button>DELETE</button>
-                    </section>
+
 
             </div>
         )
